@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Kesehatan Dasar | PT Bagong Dekaka Makmur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --red: #C8272C;
+  --red-dark: #9B1B1F;
+  --red-light: #F5C6C7;
+  --orange: #E05C1A;
+  --orange-mid: #F07930;
+  --orange-light: #FDEEE3;
+  --orange-bright: #FF8A3C;
+  --cream: #FFF8F4;
+  --white: #FFFFFF;
+  --gray-50: #F9F9F9;
+  --gray-100: #F3F3F3;
+  --gray-200: #E5E5E5;
+  --gray-400: #9E9E9E;
+  --gray-600: #5F5F5F;
+  --gray-800: #2C2C2C;
+  --gray-900: #1A1A1A;
+  --green: #1A7A4A;
+  --green-light: #E8F7EF;
+  --yellow: #D98D00;
+  --yellow-light: #FEF6E0;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.13);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--cream); color: var(--gray-800); font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+/* === NAV === */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,39,44,0.10);
+  padding: 0 28px; height: 64px; display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-brand-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--red), var(--orange)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.nav-brand-icon svg { width: 20px; height: 20px; fill: white; }
+.nav-brand-text { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--red-dark); letter-spacing: -0.3px; }
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--gray-600); padding: 7px 14px; border-radius: 8px; text-decoration: none; transition: all .2s; }
+.nav-links a:hover { background: var(--orange-light); color: var(--orange); }
+.nav-btn { font-size: 13px; font-weight: 600; color: white; background: linear-gradient(135deg, var(--red), var(--orange)); padding: 8px 18px; border-radius: 8px; text-decoration: none; transition: all .2s; box-shadow: 0 2px 8px rgba(200,39,44,0.3); }
+.nav-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(200,39,44,0.4); }
+
+/* === HERO === */
+.hero {
+  min-height: 100vh; padding-top: 64px;
+  background: linear-gradient(160deg, #1A0608 0%, #2D0A0C 30%, #1C0C03 60%, #2A1205 100%);
+  display: flex; align-items: center; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(200,39,44,0.25) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 20% 80%, rgba(224,92,26,0.2) 0%, transparent 60%);
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; opacity: 0.06;
+  background-image: linear-gradient(rgba(255,138,60,0.8) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,138,60,0.8) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 60px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,138,60,0.15); border: 1px solid rgba(255,138,60,0.3); color: var(--orange-bright); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 24px; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--orange-bright); animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.5; transform:scale(0.8)} }
+.hero h1 { font-family: var(--display); font-size: clamp(32px,5vw,52px); font-weight: 800; color: white; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+.hero h1 span { color: var(--orange-bright); }
+.hero-sub { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 36px; line-height: 1.7; max-width: 460px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--red), var(--orange)); color: white; font-weight: 700; font-size: 14px; padding: 14px 28px; border-radius: 12px; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(200,39,44,0.4); transition: all .25s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,39,44,0.5); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: white; font-weight: 600; font-size: 14px; padding: 14px 28px; border-radius: 12px; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all .25s; backdrop-filter: blur(8px); }
+.btn-secondary:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.35); }
+.hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
+.hero-stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px; text-align: center; }
+.hero-stat-num { font-family: var(--display); font-size: 28px; font-weight: 800; color: var(--orange-bright); }
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.hero-visual { position: relative; }
+.hero-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 28px; backdrop-filter: blur(12px); }
+.hero-card-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 20px; }
+.hero-metric { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.hero-metric:last-child { border-bottom: none; }
+.hero-metric-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+.hero-metric-val { font-weight: 700; }
+.fit { color: #4ADE80; } .fitnote { color: #FBD14B; } .unfit { color: #F87171; }
+.hero-donut { margin-top: 20px; position: relative; height: 140px; }
+
+/* === SECTIONS === */
+.section { max-width: 1200px; margin: 0 auto; padding: 80px 28px; }
+.section-header { text-align: center; margin-bottom: 52px; }
+.section-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1.2px; background: var(--red-light); padding: 5px 14px; border-radius: 100px; margin-bottom: 14px; }
+.section-title { font-family: var(--display); font-size: clamp(24px,4vw,38px); font-weight: 800; color: var(--gray-900); letter-spacing: -1px; line-height: 1.15; }
+.section-title span { color: var(--red); }
+.section-sub { font-size: 16px; color: var(--gray-600); max-width: 560px; margin: 12px auto 0; }
+
+/* === DASHBOARD === */
+.dashboard-bg { background: white; border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); }
+.dashboard-inner { max-width: 1200px; margin: 0 auto; padding: 80px 28px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; margin-bottom: 40px; }
+.kpi-card { background: white; border-radius: var(--radius-md); padding: 22px 20px; border: 1.5px solid var(--gray-200); position: relative; overflow: hidden; transition: all .25s; }
+.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--orange-light); }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red), var(--orange)); }
+.kpi-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.7px; }
+.kpi-val { font-family: var(--display); font-size: 30px; font-weight: 800; color: var(--gray-900); line-height: 1.1; margin: 6px 0 2px; }
+.kpi-sub { font-size: 12px; color: var(--gray-400); }
+.kpi-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin-top: 6px; }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-yellow { background: var(--yellow-light); color: var(--yellow); }
+.badge-red { background: var(--red-light); color: var(--red); }
+.charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+.charts-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.chart-card { background: white; border-radius: var(--radius-md); padding: 24px; border: 1.5px solid var(--gray-200); }
+.chart-card-title { font-size: 13px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+.chart-card-sub { font-size: 11px; color: var(--gray-400); margin-bottom: 20px; }
+.chart-wrap { position: relative; height: 220px; }
+.chart-wrap-sm { position: relative; height: 180px; }
+
+/* === ACCESS CARDS === */
+.access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.access-card { border-radius: var(--radius-lg); padding: 40px 36px; position: relative; overflow: hidden; text-decoration: none; color: inherit; transition: all .3s; display: block; }
+.access-card:hover { transform: translateY(-4px); }
+.access-card-candidate { background: linear-gradient(160deg, #1A0608, #2D100C); border: 1px solid rgba(200,39,44,0.3); }
+.access-card-admin { background: linear-gradient(160deg, #0D1A10, #0C2116); border: 1px solid rgba(26,122,74,0.3); }
+.access-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 24px; }
+.icon-red { background: rgba(200,39,44,0.2); border: 1px solid rgba(200,39,44,0.3); }
+.icon-green { background: rgba(26,122,74,0.2); border: 1px solid rgba(26,122,74,0.3); }
+.access-title { font-family: var(--display); font-size: 22px; font-weight: 800; color: white; margin-bottom: 10px; }
+.access-desc { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.65; }
+.access-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.access-features li { font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 8px; }
+.access-features li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.candidate-feat::before { background: var(--orange-bright); }
+.admin-feat::before { background: #4ADE80; }
+.access-action { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 10px; border: none; cursor: pointer; transition: all .2s; }
+.action-red { background: linear-gradient(135deg, var(--red), var(--orange)); color: white; box-shadow: 0 4px 16px rgba(200,39,44,0.35); }
+.action-red:hover { box-shadow: 0 6px 22px rgba(200,39,44,0.5); transform: translateY(-1px); }
+.action-green { background: linear-gradient(135deg, #1A7A4A, #22A363); color: white; box-shadow: 0 4px 16px rgba(26,122,74,0.35); }
+.action-green:hover { box-shadow: 0 6px 22px rgba(26,122,74,0.5); transform: translateY(-1px); }
+
+/* === QR Section === */
+.qr-section { background: linear-gradient(160deg, #1A0608, #2D0A0C); border-radius: var(--radius-xl); padding: 56px; text-align: center; color: white; margin: 0 28px 80px; position: relative; overflow: hidden; }
+.qr-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,39,44,0.2) 0%, transparent 70%); }
+.qr-section-inner { position: relative; z-index: 1; }
+.qr-box { display: inline-block; background: white; border-radius: 18px; padding: 18px; margin: 28px auto; box-shadow: 0 0 0 4px rgba(255,138,60,0.3); }
+#qrcode img { display: block; }
+
+/* === MODAL === */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: var(--radius-xl); max-width: 820px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.3); position: relative; }
+.modal-header { padding: 28px 32px 0; display: flex; align-items: flex-start; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 10; padding-bottom: 20px; border-bottom: 1.5px solid var(--gray-100); }
+.modal-title { font-family: var(--display); font-size: 22px; font-weight: 800; color: var(--gray-900); }
+.modal-subtitle { font-size: 13px; color: var(--gray-400); margin-top: 4px; }
+.modal-close { width: 36px; height: 36px; border-radius: 10px; background: var(--gray-100); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gray-600); transition: all .2s; flex-shrink: 0; }
+.modal-close:hover { background: var(--red-light); color: var(--red); }
+.modal-body { padding: 28px 32px 32px; }
+
+/* === FORM === */
+.form-section { margin-bottom: 36px; }
+.form-section-title { font-size: 13px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.8px; display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+.form-section-title::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, var(--red-light), transparent); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid-1 { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--gray-600); letter-spacing: 0.3px; }
+.required { color: var(--red); }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 11px 14px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200); font-family: var(--font); font-size: 14px;
+  color: var(--gray-900); background: white; transition: all .2s; outline: none;
+  appearance: none; -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(224,92,26,0.1); }
+.form-input:hover, .form-select:hover { border-color: var(--gray-400); }
+.form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239E9E9E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-hint { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.auto-field { background: var(--gray-50); color: var(--gray-600); border-style: dashed; }
+.status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
+.status-lanjut { background: var(--green-light); color: var(--green); }
+.status-tidak { background: var(--red-light); color: var(--red); }
+.form-row-auto { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--orange-light); border: 1.5px dashed var(--orange-mid); border-radius: var(--radius-sm); }
+.form-row-auto span { font-size: 13px; color: var(--orange); font-weight: 500; }
+.submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--red), var(--orange)); color: white; font-family: var(--font); font-weight: 700; font-size: 15px; border: none; border-radius: 12px; cursor: pointer; transition: all .25s; box-shadow: 0 4px 16px rgba(200,39,44,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,39,44,0.45); }
+.submit-btn:disabled { opacity: 0.65; transform: none; cursor: not-allowed; }
+.tabs { display: flex; gap: 8px; margin-bottom: 28px; background: var(--gray-100); border-radius: 12px; padding: 6px; }
+.tab { flex: 1; padding: 9px 14px; border-radius: 8px; border: none; font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; color: var(--gray-600); background: transparent; }
+.tab.active { background: white; color: var(--red); box-shadow: var(--shadow-sm); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.success-banner { background: var(--green-light); border: 1.5px solid var(--green); border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; display: none; }
+.success-banner.show { display: flex; }
+.error-banner { background: var(--red-light); border: 1.5px solid var(--red); border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; display: none; }
+.error-banner.show { display: flex; }
+.loading-spinner { display: inline-block; width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* === FOOTER === */
+footer { background: var(--gray-900); color: rgba(255,255,255,0.5); padding: 40px 28px; text-align: center; font-size: 13px; }
+footer strong { color: white; }
+
+/* === UTILS === */
+.divider { height: 2px; background: linear-gradient(90deg, transparent, var(--red-light), var(--orange-light), transparent); margin: 0; }
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { display: none; }
+  .charts-grid, .charts-grid-3 { grid-template-columns: 1fr; }
+  .access-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .modal-body { padding: 20px; }
+  .modal-header { padding: 20px; }
+  .qr-section { margin: 0 16px 60px; padding: 36px 24px; }
+}
+
+
+/* === TABEL ANALISIS MCU === */
+#tabel-analisis { background: white; border-top: 3px solid var(--orange); }
+.analisis-inner { max-width: 1400px; margin: 0 auto; padding: 80px 28px; }
+.tbl-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1.5px solid var(--gray-200); }
+.tbl-analisis { width: 100%; border-collapse: collapse; font-size: 13px; white-space: nowrap; }
+.tbl-analisis thead tr { background: linear-gradient(135deg, var(--red), var(--orange)); }
+.tbl-analisis thead th { color: white; font-weight: 700; padding: 12px 14px; text-align: left; font-size: 12px; letter-spacing: 0.3px; border-right: 1px solid rgba(255,255,255,0.15); white-space: nowrap; position: sticky; top: 0; }
+.tbl-analisis thead th:last-child { border-right: none; }
+.tbl-analisis tbody tr { border-bottom: 1px solid var(--gray-100); transition: background .15s; }
+.tbl-analisis tbody tr:hover { background: var(--orange-light); }
+.tbl-analisis tbody tr:nth-child(even) { background: var(--gray-50); }
+.tbl-analisis tbody tr:nth-child(even):hover { background: var(--orange-light); }
+.tbl-analisis td { padding: 10px 14px; color: var(--gray-800); vertical-align: middle; border-right: 1px solid var(--gray-100); }
+.tbl-analisis td:last-child { border-right: none; }
+.tbl-analisis td.td-no { color: var(--gray-400); font-size: 11px; text-align: center; font-weight: 600; }
+.tbl-analisis td.td-nama { font-weight: 600; color: var(--gray-900); }
+.tbl-analisis td.td-nik { font-size: 11px; color: var(--gray-400); font-family: monospace; }
+.pill { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px; white-space:nowrap; }
+.pill-fit { background:var(--green-light); color:var(--green); }
+.pill-fitnote { background:var(--yellow-light); color:var(--yellow); }
+.pill-unfit { background:var(--red-light); color:var(--red); }
+.pill-aktif { background:#DBEAFE; color:#1A5FA0; }
+.pill-nonaktif { background:var(--red-light); color:var(--red); }
+.pill-premi { background:var(--yellow-light); color:var(--yellow); }
+.pill-penangguhan { background:var(--gray-100); color:var(--gray-600); }
+.pill-lanjut { background:var(--green-light); color:var(--green); }
+.pill-tidak { background:var(--red-light); color:var(--red); }
+.tbl-tambahan-tags { display:flex; flex-wrap:wrap; gap:4px; max-width:280px; }
+.tag-item { font-size:10px; font-weight:600; background:var(--orange-light); color:var(--orange); border:1px solid rgba(224,92,26,0.25); padding:2px 7px; border-radius:100px; }
+.tbl-filter-bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:20px; }
+.tbl-filter-bar input, .tbl-filter-bar select { padding:9px 14px; border:1.5px solid var(--gray-200); border-radius:10px; font-family:var(--font); font-size:13px; color:var(--gray-800); background:white; outline:none; transition:all .2s; }
+.tbl-filter-bar input:focus, .tbl-filter-bar select:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(224,92,26,0.1); }
+.tbl-filter-bar input { flex:1; min-width:200px; }
+.tbl-empty { text-align:center; padding:40px; color:var(--gray-400); font-size:14px; }
+.tbl-count { font-size:12px; color:var(--gray-400); }
+.tbl-refresh-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; background:white; border:1.5px solid var(--gray-200); border-radius:10px; font-family:var(--font); font-size:13px; font-weight:600; color:var(--gray-600); cursor:pointer; transition:all .2s; }
+.tbl-refresh-btn:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-light); }
+.tbl-loading { text-align:center; padding:48px; color:var(--gray-400); }
+.tbl-loading-spinner { display:inline-block; width:28px; height:28px; border:3px solid var(--gray-200); border-top-color:var(--orange); border-radius:50%; animation:spin .8s linear infinite; margin-bottom:12px; }
+
+
+/* === INLINE TABLE INPUTS === */
+.tbl-input { width:100%; padding:6px 8px; border:1.5px solid var(--gray-200); border-radius:6px; font-family:var(--font); font-size:12px; color:var(--gray-900); background:white; outline:none; transition:border-color .15s; }
+.tbl-input:focus { border-color:var(--orange); box-shadow:0 0 0 2px rgba(224,92,26,0.1); }
+.tbl-select { width:100%; padding:6px 28px 6px 8px; border:1.5px solid var(--gray-200); border-radius:6px; font-family:var(--font); font-size:12px; color:var(--gray-900); background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239E9E9E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center; -webkit-appearance:none; appearance:none; outline:none; cursor:pointer; transition:border-color .15s; }
+.tbl-select:focus { border-color:var(--orange); }
+.tbl-auto-cell { background:var(--gray-50); font-size:12px; color:var(--gray-600); font-style:italic; padding:8px; border-radius:6px; border:1.5px dashed var(--gray-200); min-height:34px; display:flex; align-items:center; }
+.tbl-tambahan-auto { background:var(--orange-light); border:1.5px dashed var(--orange-mid); border-radius:6px; font-size:11px; color:var(--orange); padding:6px 8px; line-height:1.5; min-height:34px; }
+.tbl-analisis tbody td { padding:8px 10px; }
+
+/* === PASSWORD SCREEN === */
+.pw-shake { animation: shake .4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--red-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
+/* Tag tambahan untuk tab MCU yang panjang */
+.tabs-mcu { flex-wrap: wrap; }
+.tabs-mcu .tab { flex: none; min-width: 100px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.69 2 6 4.69 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6zm0 8.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+    </div>
+    <span class="nav-brand-text">SKD · PT BDM</span>
+  </a>
+  <div class="nav-links">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#akses">Akses</a>
+    <a href="#input-kandidat">Form Input</a>
+    <a href="#tabel-analisis">Analisis MCU</a>
+    <a href="#qr-section">QR Code</a>
+  </div>
+  <a href="#akses" class="nav-btn">Mulai Input →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">Sistem Aktif · 2025</div>
+      <h1>Sistem <span>Kesehatan Dasar</span> Calon Karyawan</h1>
+      <p class="hero-sub">Platform digital terpadu untuk pemeriksaan kesehatan, screening MCU, dan manajemen kelayakan kerja calon karyawan PT Bagong Dekaka Makmur.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="openModal('modal-kandidat')">📋 Input Data Kandidat</button>
+        <button class="btn-secondary" onclick="openModal('modal-admin')">🔐 Portal Admin/Operator</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-total">—</div><div class="hero-stat-label">Total Kandidat</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-fit">—</div><div class="hero-stat-label">Status Fit</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" id="stat-mcu">—</div><div class="hero-stat-label">Lanjut MCU</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-title">Rekapitulasi Terkini</div>
+        <div class="hero-metric"><span class="hero-metric-label">Fit</span><span class="hero-metric-val fit">—</span></div>
+        <div class="hero-metric"><span class="hero-metric-label">Fit with Note</span><span class="hero-metric-val fitnote">—</span></div>
+        <div class="hero-metric"><span class="hero-metric-label">Unfit</span><span class="hero-metric-val unfit">—</span></div>
+        <div class="hero-metric"><span class="hero-metric-label">BPJS Aktif</span><span class="hero-metric-val" style="color:#60A5FA">—</span></div>
+        <div class="hero-donut"><canvas id="heroDonutChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="dashboard-bg">
+  <div class="dashboard-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Dashboard</span>
+      <h2 class="section-title">Capaian & Analitik <span>Kesehatan</span></h2>
+      <p class="section-sub">Visualisasi real-time berdasarkan data Google Spreadsheet terintegrasi.</p>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid" id="kpiGrid">
+      <div class="kpi-card fade-in"><div class="kpi-label">Total Kandidat</div><div class="kpi-val" id="kpi-total">...</div><div class="kpi-sub">Semua Batch</div></div>
+      <div class="kpi-card fade-in"><div class="kpi-label">Status Fit</div><div class="kpi-val" id="kpi-fit" style="color:var(--green)">...</div><div class="kpi-sub">Layak Kerja</div><span class="kpi-badge badge-green" id="kpi-fit-pct">—</span></div>
+      <div class="kpi-card fade-in"><div class="kpi-label">Fit with Note</div><div class="kpi-val" id="kpi-fitnote" style="color:var(--yellow)">...</div><div class="kpi-sub">Ada Catatan</div><span class="kpi-badge badge-yellow" id="kpi-fitnote-pct">—</span></div>
+      <div class="kpi-card fade-in"><div class="kpi-label">Unfit</div><div class="kpi-val" id="kpi-unfit" style="color:var(--red)">...</div><div class="kpi-sub">Tidak Layak</div><span class="kpi-badge badge-red" id="kpi-unfit-pct">—</span></div>
+      <div class="kpi-card fade-in"><div class="kpi-label">BPJS Aktif</div><div class="kpi-val" id="kpi-bpjs">...</div><div class="kpi-sub">Peserta Aktif</div></div>
+      <div class="kpi-card fade-in"><div class="kpi-label">Lanjut MCU</div><div class="kpi-val" id="kpi-mcu">...</div><div class="kpi-sub">Dari Skrining</div></div>
+    </div>
+
+    <!-- Charts row 1 -->
+    <div class="charts-grid fade-in">
+      <div class="chart-card">
+        <div class="chart-card-title">10 Penyakit Terbanyak</div>
+        <div class="chart-card-sub">Berdasarkan hasil pemeriksaan dasar & MCU</div>
+        <div class="chart-wrap"><canvas id="diseaseChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Hasil Akhir MCU</div>
+        <div class="chart-card-sub">Distribusi rekomendasi plottingan</div>
+        <div class="chart-wrap"><canvas id="mcuResultChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Charts row 2 -->
+    <div class="charts-grid-3 fade-in" style="margin-top:24px">
+      <div class="chart-card">
+        <div class="chart-card-title">Berdasarkan Posisi</div>
+        <div class="chart-card-sub">Distribusi kandidat per jabatan</div>
+        <div class="chart-wrap-sm"><canvas id="posisiChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Berdasarkan Batch</div>
+        <div class="chart-card-sub">Capaian per batch rekrutmen</div>
+        <div class="chart-wrap-sm"><canvas id="batchChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Status BPJS</div>
+        <div class="chart-card-sub">Keaktifan kepesertaan BPJS</div>
+        <div class="chart-wrap-sm"><canvas id="bpjsChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Charts row 3 -->
+    <div class="charts-grid fade-in" style="margin-top:24px">
+      <div class="chart-card">
+        <div class="chart-card-title">Rekomendasi FU (Follow Up)</div>
+        <div class="chart-card-sub">Perbandingan FU1, FU2, FU3</div>
+        <div class="chart-wrap"><canvas id="fuChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">Skrining Kesehatan Dasar</div>
+        <div class="chart-card-sub">Lanjut vs Tidak Lanjut</div>
+        <div class="chart-wrap"><canvas id="screeningChart"></canvas></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px">
+      <a href="https://docs.google.com/spreadsheets/d/1RKLJwUU8XCqvf99m1LQVmtK4hvKIGpp8_WGVlt_g7Ao/edit" target="_blank" class="btn-primary" style="display:inline-flex">
+        📊 Buka Google Spreadsheet
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<!-- TABEL ANALISIS MCU -->
+<section id="tabel-analisis" class="">
+  <div class="analisis-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Data Lengkap</span>
+      <h2 class="section-title">Tabel Analisis <span>TabelMCU</span></h2>
+      <p class="section-sub">Rekap seluruh data kandidat beserta hasil skrining, MCU, BPJS, Faskes, Tambahan Matrix, dan Rekomendasi Plottingan.</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="tbl-filter-bar fade-in">
+      <input type="text" id="tbl-search" placeholder="🔍 Cari NIK atau Nama kandidat..." oninput="filterTable()">
+      <select id="tbl-filter-plotting" onchange="filterTable()">
+        <option value="">Semua Rekomendasi</option>
+        <option value="Fit">✅ Fit</option>
+        <option value="Fit with Note">⚠️ Fit with Note</option>
+        <option value="Unfit">❌ Unfit</option>
+      </select>
+      <select id="tbl-filter-bpjs" onchange="filterTable()">
+        <option value="">Semua Status BPJS</option>
+        <option value="Aktif">Aktif</option>
+        <option value="Non-Aktif">Non-Aktif</option>
+        <option value="Premi">Premi</option>
+        <option value="Penangguhan">Penangguhan</option>
+      </select>
+      <select id="tbl-filter-screening" onchange="filterTable()">
+        <option value="">Semua Screening</option>
+        <option value="Lanjut MCU">Lanjut MCU</option>
+        <option value="Tidak Lanjut MCU">Tidak Lanjut MCU</option>
+      </select>
+      <button class="tbl-refresh-btn" onclick="loadTableData()">↻ Refresh</button>
+      <span class="tbl-count" id="tbl-count-label">— data</span>
+    </div>
+
+    <div class="tbl-wrap fade-in">
+      <table class="tbl-analisis" id="mainTable">
+        <thead>
+          <tr>
+            <th style="min-width:36px">#</th>
+            <th style="min-width:130px">NIK</th>
+            <th style="min-width:160px">Nama</th>
+            <th style="min-width:110px">Screening</th>
+            <th style="min-width:180px">Temuan Screening</th>
+            <th style="min-width:130px">Rek. MCU</th>
+            <th style="min-width:110px">BPJS</th>
+            <th style="min-width:160px">Faskes 1</th>
+            <th style="min-width:100px">FU1</th>
+            <th style="min-width:100px">FU2</th>
+            <th style="min-width:100px">FU3</th>
+            <th style="min-width:160px">Rencana Plottingan</th>
+            <th style="min-width:90px">User</th>
+            <th style="min-width:280px">Tambahan Matrix</th>
+            <th style="min-width:130px">Rek. Plotting</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="15" class="tbl-loading">
+            <div class="tbl-loading-spinner" style="display:block;margin:0 auto"></div>
+            <div style="margin-top:8px">Memuat data dari spreadsheet...</div>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:12px">
+      <div id="tbl-summary" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+      <a href="https://docs.google.com/spreadsheets/d/1RKLJwUU8XCqvf99m1LQVmtK4hvKIGpp8_WGVlt_g7Ao/edit?gid=2024755806" target="_blank" class="btn-primary" style="display:inline-flex;font-size:13px;padding:10px 20px">
+        📊 Lihat di Google Spreadsheet
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS SECTION -->
+<section id="akses" class="section">
+  <div class="section-header fade-in">
+    <span class="section-eyebrow">Portal Akses</span>
+    <h2 class="section-title">Pilih <span>Jenis Akses</span></h2>
+    <p class="section-sub">Tersedia dua jalur akses: kandidat melalui scan barcode, dan operator/admin melalui login terlindungi.</p>
+  </div>
+  <div class="access-grid">
+    <div class="access-card access-card-candidate fade-in" onclick="openModal('modal-kandidat')" style="cursor:pointer">
+      <div class="access-icon icon-red">🪪</div>
+      <div class="access-title">Portal Kandidat</div>
+      <p class="access-desc">Diakses melalui scan QR/Barcode. Kandidat mengisi data identitas diri secara mandiri.</p>
+      <ul class="access-features">
+        <li class="candidate-feat">Input data identitas (NIK, Nama, TTL)</li>
+        <li class="candidate-feat">Pilih posisi & batch pendaftaran</li>
+        <li class="candidate-feat">Cepat, mudah, tanpa login</li>
+      </ul>
+      <button class="access-action action-red">Akses Form Kandidat →</button>
+    </div>
+    <div class="access-card access-card-admin fade-in" onclick="openModal('modal-admin')" style="cursor:pointer">
+      <div class="access-icon icon-green">🔐</div>
+      <div class="access-title">Portal Operator/Admin</div>
+      <p class="access-desc">Khusus operator kesehatan & admin. Input data pemeriksaan, MCU, dan pengelolaan data lengkap.</p>
+      <ul class="access-features">
+        <li class="admin-feat">Input Kesehatan Dasar (BMI, Tensi, dll)</li>
+        <li class="admin-feat">Review & Input Data MCU</li>
+        <li class="admin-feat">Manajemen TabelMCU & Tambahan</li>
+        <li class="admin-feat">Akses Dashboard Analitik</li>
+      </ul>
+      <button class="access-action action-green">Login Operator →</button>
+    </div>
+  </div>
+</section>
+
+<!-- QR SECTION -->
+<section id="qr-section">
+  <div class="qr-section">
+    <div class="qr-section-inner">
+      <div class="section-eyebrow" style="background:rgba(255,138,60,0.2);color:var(--orange-bright)">Scan & Daftar</div>
+      <h2 class="section-title" style="color:white;margin:12px 0 8px">Scan QR Code <span>untuk Kandidat</span></h2>
+      <p style="color:rgba(255,255,255,0.55);font-size:15px;max-width:480px;margin:0 auto">Arahkan kamera ke QR Code di bawah untuk langsung membuka formulir pendaftaran kandidat.</p>
+      <div class="qr-box">
+        <div id="qrcode"></div>
+      </div>
+      <p style="color:rgba(255,255,255,0.35);font-size:12px">Link menuju halaman input data kandidat</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>PT Bagong Dekaka Makmur</strong> · Sistem Kesehatan Dasar Calon Karyawan</p>
+  <p style="margin-top:6px;font-size:12px">Data tersimpan ke Google Spreadsheet · Dikelola oleh Tim HR & Kesehatan</p>
+</footer>
+
+<!-- =============================== -->
+<!-- MODAL: KANDIDAT (Sheet Kandidat) -->
+<!-- =============================== -->
+<div class="modal-overlay" id="modal-kandidat">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">📋 Form Data Kandidat</div>
+        <div class="modal-subtitle">Sheet: Kandidat · Diisi oleh Calon Karyawan</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-kandidat')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="success-banner" id="sb-kandidat">
+        <span style="font-size:20px">✅</span>
+        <div><strong style="color:var(--green)">Data berhasil disimpan!</strong><br><span style="font-size:13px;color:var(--green)">Data Anda telah masuk ke spreadsheet.</span></div>
+      </div>
+      <div class="error-banner" id="eb-kandidat">
+        <span style="font-size:20px">❌</span>
+        <div id="eb-kandidat-msg"><strong style="color:var(--red)">Gagal menyimpan data.</strong><br><span style="font-size:13px;color:var(--red)">Silakan coba lagi.</span></div>
+      </div>
+
+      <form id="form-kandidat" onsubmit="submitKandidat(event)">
+        <div class="form-section">
+          <div class="form-section-title">Identitas Calon Karyawan</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">NIK <span class="required">*</span></label>
+              <input type="text" class="form-input" id="k-nik" placeholder="Nomor Induk Kependudukan (16 digit)" maxlength="16" pattern="[0-9]{16}" required>
+              <span class="form-hint">Sesuai KTP (16 digit angka)</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nama Lengkap <span class="required">*</span></label>
+              <input type="text" class="form-input" id="k-nama" placeholder="Nama sesuai KTP" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tanggal Lahir <span class="required">*</span></label>
+              <input type="date" class="form-input" id="k-tgl" required onchange="hitungUsia()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Usia (Otomatis)</label>
+              <input type="text" class="form-input auto-field" id="k-usia" placeholder="Terisi otomatis" readonly>
+              <span class="form-hint">Dihitung dari tanggal lahir</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Informasi Rekrutmen</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Posisi <span class="required">*</span></label>
+              <select class="form-select" id="k-posisi" required>
+                <option value="">— Pilih Posisi —</option>
+                <option>Driver - Operation</option>
+                <option>Mekanik</option>
+                <option>Mekanik AC</option>
+                <option>BMDP</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Batch <span class="required">*</span></label>
+              <select class="form-select" id="k-batch" required>
+                <option value="">— Pilih Batch —</option>
+                <option>Junior</option>
+                <option>Senior</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn" id="btn-kandidat">
+          <span>💾 Simpan Data Kandidat ke Spreadsheet</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- MODAL: ADMIN/OPERATOR -->
+<!-- =============================== -->
+<div class="modal-overlay" id="modal-admin">
+  <div class="modal" style="max-width:1000px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="admin-modal-title">🔐 Login Operator / Admin</div>
+        <div class="modal-subtitle" id="admin-modal-sub">Masukkan password untuk mengakses sistem</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-admin');resetAdminLogin()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- LOGIN SCREEN -->
+      <div id="admin-login-screen">
+        <div style="max-width:360px;margin:16px auto 0;text-align:center">
+          <div style="width:68px;height:68px;background:linear-gradient(135deg,var(--red),var(--orange));border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:30px;box-shadow:0 8px 24px rgba(200,39,44,0.28)">🔐</div>
+          <h3 style="font-family:var(--display);font-size:20px;font-weight:800;color:var(--gray-900);margin-bottom:5px">Portal Operator / Admin</h3>
+          <p style="font-size:13px;color:var(--gray-400);margin-bottom:24px">Akses khusus PT Bagong Dekaka Makmur</p>
+          <div class="form-group" style="text-align:left;margin-bottom:14px">
+            <label class="form-label">Password <span class="required">*</span></label>
+            <div style="position:relative">
+              <input type="password" class="form-input" id="admin-pw-input" placeholder="Masukkan password admin" onkeydown="if(event.key==='Enter')doAdminLogin()" style="padding-right:44px">
+              <button type="button" onclick="togglePwVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:16px" id="pw-eye">👁</button>
+            </div>
+          </div>
+          <div id="admin-login-err" style="display:none;background:var(--red-light);border:1.5px solid var(--red);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--red);font-weight:600;margin-bottom:12px;text-align:left">❌ Password salah. Silakan coba lagi.</div>
+          <button onclick="doAdminLogin()" class="submit-btn" style="width:100%">🔓 Masuk ke Portal Admin</button>
+          <p style="font-size:11px;color:var(--gray-400);margin-top:14px">Hubungi administrator jika lupa password</p>
+        </div>
+      </div>
+
+      <!-- ADMIN CONTENT -->
+      <div id="admin-content" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:10px 16px;background:var(--green-light);border-radius:10px;border:1px solid rgba(26,122,74,0.2)">
+          <span style="font-size:13px;color:var(--green);font-weight:600">✅ Login berhasil — Selamat datang, Operator</span>
+          <button onclick="resetAdminLogin()" style="font-size:12px;font-weight:600;color:var(--gray-600);background:white;border:1.5px solid var(--gray-200);border-radius:8px;padding:5px 12px;cursor:pointer">🚪 Logout</button>
+        </div>
+      <div class="tabs tabs-mcu" id="adminTabs">
+        <button class="tab active" onclick="switchTab('tab-kdsar','adminTabs')">🩺 Kes. Dasar</button>
+        <button class="tab" onclick="switchTab('tab-mcu','adminTabs');loadKdsarLanjutForMCU()">🏥 Tabel MCU</button>
+        <button class="tab" onclick="switchTab('tab-review','adminTabs')">🔬 Review MCU</button>
+        <button class="tab" onclick="switchTab('tab-tambahan','adminTabs')">➕ Tambahan</button>
+      </div>
+
+      <!-- === TAB: KESEHATAN DASAR === -->
+      <div class="tab-content active" id="tab-kdsar">
+        <div class="success-banner" id="sb-kdsar"><span style="font-size:20px">✅</span><div><strong style="color:var(--green)">Data Kesehatan Dasar tersimpan!</strong></div></div>
+        <div class="error-banner" id="eb-kdsar"><span style="font-size:20px">❌</span><div id="eb-kdsar-msg"><strong style="color:var(--red)">Gagal menyimpan.</strong></div></div>
+        <form id="form-kdsar" onsubmit="submitKdsar(event)">
+          <div class="form-section">
+            <div class="form-section-title">Data Identitas (dari Sheet Kandidat)</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">NIK Kandidat <span class="required">*</span></label>
+                <input type="text" class="form-input" id="kd-nik" placeholder="Masukkan NIK" maxlength="16" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nama Kandidat</label>
+                <input type="text" class="form-input auto-field" id="kd-nama" placeholder="Terisi otomatis dari NIK" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Pemeriksaan Fisik Dasar</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Buta Warna <span class="required">*</span></label>
+                <select class="form-select" id="kd-bw" required onchange="updateRekomKdsar()">
+                  <option value="">— Pilih —</option>
+                  <option>Negatif</option>
+                  <option>Positif</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tinggi Badan (cm) <span class="required">*</span></label>
+                <input type="number" class="form-input" id="kd-tb" placeholder="misal: 170" min="100" max="250" required onchange="hitungBMI_kd()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Berat Badan (kg) <span class="required">*</span></label>
+                <input type="number" class="form-input" id="kd-bb" placeholder="misal: 70" min="30" max="300" required onchange="hitungBMI_kd()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">BMI (Otomatis)</label>
+                <input type="text" class="form-input auto-field" id="kd-bmi" placeholder="Terisi otomatis" readonly>
+                <span class="form-hint">BB (kg) / TB² (m)</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sistole (mmHg) <span class="required">*</span></label>
+                <input type="number" class="form-input" id="kd-sistole" placeholder="misal: 120" min="60" max="300" required onchange="updateRekomKdsar()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Diastole (mmHg) <span class="required">*</span></label>
+                <input type="number" class="form-input" id="kd-diastole" placeholder="misal: 80" min="40" max="200" required onchange="updateRekomKdsar()">
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Rekomendasi Otomatis</div>
+            <div class="form-row-auto">
+              <span id="rekom-kdsar-display">⚡ Akan terisi otomatis setelah data diisi</span>
+              <input type="hidden" id="kd-rekom">
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="btn-kdsar">💾 Simpan Kesehatan Dasar</button>
+        </form>
+      </div>
+
+      <!-- === TAB: TABEL MCU === -->
+      <div class="tab-content" id="tab-mcu">
+        <div class="success-banner" id="sb-mcu"><span style="font-size:20px">✅</span><div><strong style="color:var(--green)">Semua baris TabelMCU berhasil disimpan!</strong></div></div>
+        <div class="error-banner" id="eb-mcu"><span style="font-size:20px">❌</span><div id="eb-mcu-msg"><strong style="color:var(--red)">Gagal menyimpan.</strong></div></div>
+
+        <!-- Info banner -->
+        <div style="background:var(--orange-light);border:1.5px solid var(--orange-mid);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--gray-600);display:flex;gap:10px;align-items:flex-start">
+          <span style="flex-shrink:0;font-size:16px">ℹ️</span>
+          <div><strong style="color:var(--orange)">Cara Kerja Tabel MCU:</strong> NIK &amp; Nama terisi otomatis dari kandidat dengan rekomendasi <strong>Lanjut Screening</strong>. Klik <strong>Muat Kandidat</strong> untuk memperbarui. Setelah semua baris diisi, klik <strong>Simpan Semua ke Spreadsheet</strong>.</div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+          <button type="button" class="tbl-refresh-btn" onclick="loadKdsarLanjutForMCU()" id="btn-load-mcu">🔄 Muat Kandidat Lanjut Screening</button>
+          <button type="button" onclick="saveMCUTable()" class="submit-btn" id="btn-mcu" style="width:auto;padding:9px 20px;font-size:13px">💾 Simpan Semua ke Spreadsheet</button>
+          <span id="mcu-row-count" style="font-size:12px;color:var(--gray-400)"></span>
+        </div>
+
+        <!-- TABEL MCU INPUT -->
+        <div style="overflow-x:auto;border-radius:12px;border:1.5px solid var(--gray-200)">
+          <table class="tbl-analisis" id="input-mcu-table" style="min-width:1300px">
+            <thead>
+              <tr>
+                <th style="min-width:36px">#</th>
+                <th style="min-width:130px">NIK <span style="opacity:.6;font-weight:400">(otomatis)</span></th>
+                <th style="min-width:160px">Nama <span style="opacity:.6;font-weight:400">(otomatis)</span></th>
+                <th style="min-width:140px">Screening <span style="color:#FFD700">*</span></th>
+                <th style="min-width:120px">Status BPJS <span style="color:#FFD700">*</span></th>
+                <th style="min-width:160px">Faskes 1</th>
+                <th style="min-width:130px">Rek. FU1 <span style="color:#FFD700">*</span></th>
+                <th style="min-width:130px">Rek. FU2</th>
+                <th style="min-width:130px">Rek. FU3</th>
+                <th style="min-width:180px">Rencana Plottingan <span style="color:#FFD700">*</span></th>
+                <th style="min-width:160px">User / Klien</th>
+                <th style="min-width:250px">Tambahan Matrix <span style="opacity:.6;font-weight:400">(otomatis)</span></th>
+                <th style="min-width:130px">Rek. Plotting <span style="color:#FFD700">*</span></th>
+              </tr>
+            </thead>
+            <tbody id="mcu-table-body">
+              <tr><td colspan="13" style="text-align:center;padding:32px;color:var(--gray-400);font-size:13px">
+                Klik <strong>Muat Kandidat Lanjut Screening</strong> untuk memulai
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Hidden form data store -->
+        <div id="mcu-rows-data" style="display:none"></div>
+      </div>
+
+      <!-- === TAB: REVIEW MCU === -->
+      <div class="tab-content" id="tab-review">
+        <div class="success-banner" id="sb-review"><span style="font-size:20px">✅</span><div><strong style="color:var(--green)">Data Review MCU tersimpan!</strong></div></div>
+        <div class="error-banner" id="eb-review"><span style="font-size:20px">❌</span><div id="eb-review-msg"><strong style="color:var(--red)">Gagal menyimpan.</strong></div></div>
+        <form id="form-review" onsubmit="submitReview(event)">
+          <div class="form-section">
+            <div class="form-section-title">Identitas</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">NIK <span class="required">*</span></label><input type="text" class="form-input" id="rv-nik" required placeholder="NIK Kandidat"></div>
+              <div class="form-group"><label class="form-label">Nama</label><input type="text" class="form-input" id="rv-nama" placeholder="Nama Kandidat"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Pemeriksaan Fisik & Optik</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Hemoroid</label><input type="text" class="form-input" id="rv-hemoroid" placeholder="Normal / Grade I-IV"></div>
+              <div class="form-group"><label class="form-label">Visus Jauh OD</label><input type="text" class="form-input" id="rv-visus-od" placeholder="misal: 6/6"></div>
+              <div class="form-group"><label class="form-label">Visus Jauh OS</label><input type="text" class="form-input" id="rv-visus-os" placeholder="misal: 6/6"></div>
+              <div class="form-group"><label class="form-label">Buta Warna</label><select class="form-select" id="rv-bw"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">BMI</label><input type="number" step="0.01" class="form-input" id="rv-bmi" placeholder="misal: 22.5"></div>
+              <div class="form-group"><label class="form-label">Sistol (mmHg)</label><input type="number" class="form-input" id="rv-sistol" placeholder="misal: 120"></div>
+              <div class="form-group"><label class="form-label">Diastol (mmHg)</label><input type="number" class="form-input" id="rv-diastol" placeholder="misal: 80"></div>
+              <div class="form-group"><label class="form-label">Nadi (bpm)</label><input type="number" class="form-input" id="rv-nadi" placeholder="misal: 72"></div>
+              <div class="form-group"><label class="form-label">EKG</label><input type="text" class="form-input" id="rv-ekg" placeholder="Normal Sinus Rhythm / ..."></div>
+              <div class="form-group"><label class="form-label">Treadmill</label><input type="text" class="form-input" id="rv-treadmill" placeholder="Hasil treadmill"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Hematologi</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Hemoglobin (g/dL)</label><input type="number" step="0.1" class="form-input" id="rv-hb" placeholder="misal: 14.5"></div>
+              <div class="form-group"><label class="form-label">Leukosit (/µL)</label><input type="number" class="form-input" id="rv-leuko" placeholder="misal: 7500"></div>
+              <div class="form-group"><label class="form-label">Eritrosit (juta/µL)</label><input type="number" step="0.01" class="form-input" id="rv-eritro" placeholder="misal: 5.2"></div>
+              <div class="form-group"><label class="form-label">Hematokrit (%)</label><input type="number" step="0.1" class="form-input" id="rv-hema" placeholder="misal: 45"></div>
+              <div class="form-group"><label class="form-label">Trombosit (/µL)</label><input type="number" class="form-input" id="rv-trombo" placeholder="misal: 250000"></div>
+              <div class="form-group"><label class="form-label">LED (mm/jam)</label><input type="number" class="form-input" id="rv-led" placeholder="misal: 10"></div>
+              <div class="form-group"><label class="form-label">Gol. Darah + Rhesus</label><input type="text" class="form-input" id="rv-goldar" placeholder="misal: A+"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Metabolisme & Ginjal</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">GDP (mg/dL)</label><input type="number" class="form-input" id="rv-gdp" placeholder="misal: 95"></div>
+              <div class="form-group"><label class="form-label">GD2JPP (mg/dL)</label><input type="number" class="form-input" id="rv-gd2jpp" placeholder="misal: 120"></div>
+              <div class="form-group"><label class="form-label">HbA1c (%)</label><input type="number" step="0.1" class="form-input" id="rv-hba1c" placeholder="misal: 5.7"></div>
+              <div class="form-group"><label class="form-label">Asam Urat (mg/dL)</label><input type="number" step="0.1" class="form-input" id="rv-asamurat" placeholder="misal: 6.5"></div>
+              <div class="form-group"><label class="form-label">Ureum (mg/dL)</label><input type="number" class="form-input" id="rv-ureum" placeholder="misal: 25"></div>
+              <div class="form-group"><label class="form-label">Creatinin (mg/dL)</label><input type="number" step="0.01" class="form-input" id="rv-creat" placeholder="misal: 0.9"></div>
+              <div class="form-group"><label class="form-label">eGFR (mL/min/1.73m²)</label><input type="number" class="form-input" id="rv-egfr" placeholder="misal: 90"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Hepatitis & Serologi</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">HBsAg</label><select class="form-select" id="rv-hbsag"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+              <div class="form-group"><label class="form-label">Anti-HBs</label><select class="form-select" id="rv-antihbs"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+              <div class="form-group"><label class="form-label">HBeAg</label><select class="form-select" id="rv-hbeag"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+              <div class="form-group"><label class="form-label">Urine Lengkap</label><input type="text" class="form-input" id="rv-urine" placeholder="Normal / Abnormal"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Lipid & Hati</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Kolesterol Total (mg/dL)</label><input type="number" class="form-input" id="rv-chol" placeholder="misal: 180"></div>
+              <div class="form-group"><label class="form-label">HDL (mg/dL)</label><input type="number" class="form-input" id="rv-hdl" placeholder="misal: 55"></div>
+              <div class="form-group"><label class="form-label">LDL (mg/dL)</label><input type="number" class="form-input" id="rv-ldl" placeholder="misal: 110"></div>
+              <div class="form-group"><label class="form-label">Trigliserida (mg/dL)</label><input type="number" class="form-input" id="rv-trigl" placeholder="misal: 120"></div>
+              <div class="form-group"><label class="form-label">SGOT/AST (U/L)</label><input type="number" class="form-input" id="rv-sgot" placeholder="misal: 25"></div>
+              <div class="form-group"><label class="form-label">SGPT/ALT (U/L)</label><input type="number" class="form-input" id="rv-sgpt" placeholder="misal: 20"></div>
+              <div class="form-group"><label class="form-label">Alkali Fosfatase (U/L)</label><input type="number" class="form-input" id="rv-alkali" placeholder="misal: 70"></div>
+              <div class="form-group"><label class="form-label">Gamma GT (U/L)</label><input type="number" class="form-input" id="rv-ggt" placeholder="misal: 30"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Pemeriksaan Lanjutan</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Spirometri</label><input type="text" class="form-input" id="rv-spiro" placeholder="Normal / Obstruksi / Restriksi"></div>
+              <div class="form-group"><label class="form-label">Audiometri</label><input type="text" class="form-input" id="rv-audio" placeholder="Normal / Gangguan pendengaran"></div>
+              <div class="form-group"><label class="form-label">Thorax X-ray</label><input type="text" class="form-input" id="rv-thorax" placeholder="Kesan hasil rontgen"></div>
+              <div class="form-group"><label class="form-label">Lumbosacral</label><input type="text" class="form-input" id="rv-lumbo" placeholder="Normal / Kelainan"></div>
+              <div class="form-group"><label class="form-label">Drug Test 6P</label><select class="form-select" id="rv-drug6"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Drug Test 7P</label><select class="form-select" id="rv-drug7"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Malaria</label><select class="form-select" id="rv-malaria"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">VDRL</label><select class="form-select" id="rv-vdrl"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+              <div class="form-group"><label class="form-label">TPHA</label><select class="form-select" id="rv-tpha"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+              <div class="form-group"><label class="form-label">HIV</label><select class="form-select" id="rv-hiv"><option value="">— Pilih —</option><option>Non-Reaktif</option><option>Reaktif</option></select></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Bilirubin & Psikologi</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Bilirubin Direct (mg/dL)</label><input type="number" step="0.01" class="form-input" id="rv-bildir" placeholder="misal: 0.2"></div>
+              <div class="form-group"><label class="form-label">Bilirubin Indirect (mg/dL)</label><input type="number" step="0.01" class="form-input" id="rv-bilindir" placeholder="misal: 0.5"></div>
+              <div class="form-group"><label class="form-label">Bilirubin Total (mg/dL)</label><input type="number" step="0.01" class="form-input" id="rv-biltot" placeholder="misal: 0.7"></div>
+              <div class="form-group"><label class="form-label">Harvard Test</label><input type="text" class="form-input" id="rv-harvard" placeholder="Hasil Harvard Step Test"></div>
+              <div class="form-group"><label class="form-label">Framingham Score</label><input type="number" step="0.1" class="form-input" id="rv-framing" placeholder="Skor risiko kardiovaskuler"></div>
+              <div class="form-group"><label class="form-label">Interpretasi Framingham</label><input type="text" class="form-input" id="rv-framing-int" placeholder="Low / Moderate / High Risk"></div>
+              <div class="form-group"><label class="form-label">SRQ-20</label><input type="number" class="form-input" id="rv-srq" placeholder="Skor SRQ-20 (0-20)"></div>
+              <div class="form-group"><label class="form-label">DASS-21</label><input type="text" class="form-input" id="rv-dass" placeholder="Skor / Kategori DASS-21"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Tes Muskuloskeletal & Neurologis</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Balance Test</label><input type="text" class="form-input" id="rv-balance" placeholder="Normal / Abnormal"></div>
+              <div class="form-group"><label class="form-label">Romberg Test</label><select class="form-select" id="rv-romberg"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Phalen's Test</label><select class="form-select" id="rv-phalen"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Tinel's Test</label><select class="form-select" id="rv-tinel"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Straight Leg Raise Test</label><select class="form-select" id="rv-slr"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">Contra Patrick Test</label><select class="form-select" id="rv-contrapatrick"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+              <div class="form-group"><label class="form-label">PAP TB</label><input type="text" class="form-input" id="rv-paptb" placeholder="Hasil PAP TB"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Rekomendasi Otomatis (dari Review MCU)</div>
+            <div class="form-grid form-grid-1">
+              <div class="form-group">
+                <label class="form-label">Rekomendasi (Otomatis)</label>
+                <input type="text" class="form-input auto-field" id="rv-rekom" placeholder="Terisi otomatis dari temuan" readonly>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Temuan (Otomatis)</label>
+                <textarea class="form-textarea auto-field" id="rv-temuan" placeholder="Temuan akan terisi otomatis" readonly></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="btn-review">💾 Simpan Data Review MCU</button>
+        </form>
+      </div>
+
+      <!-- === TAB: TAMBAHAN === -->
+      <div class="tab-content" id="tab-tambahan">
+        <div class="success-banner" id="sb-tambahan"><span style="font-size:20px">✅</span><div><strong style="color:var(--green)">Data Tambahan tersimpan!</strong></div></div>
+        <div class="error-banner" id="eb-tambahan"><span style="font-size:20px">❌</span><div id="eb-tambahan-msg"><strong style="color:var(--red)">Gagal menyimpan.</strong></div></div>
+        <div style="background:var(--orange-light);border:1.5px solid var(--orange-mid);border-radius:12px;padding:14px 18px;margin-bottom:22px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:18px;flex-shrink:0">ℹ️</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:4px">Sheet Tambahan = Sumber Acuan Pemeriksaan per Site</div>
+            <div style="font-size:12px;color:var(--gray-600);line-height:1.6">Sheet ini berisi daftar pemeriksaan tambahan wajib per <strong>Site</strong> dan <strong>User/Klien</strong>. Kolom Site &amp; User bersifat <strong>opsional</strong> — cukup isi item "Ya" sesuai yang berlaku. Ketika di TabelMCU operator mengisi <strong>Rencana Plottingan</strong> (Site) + <strong>User</strong>, sistem otomatis mencocokkan dan menampilkan item "Ya" sebagai <strong>Tambahan Matrix</strong>.</div>
+          </div>
+        </div>
+        <form id="form-tambahan" onsubmit="submitTambahan(event)">
+          <div class="form-section">
+            <div class="form-section-title">Identifikasi Acuan <span style="font-size:11px;color:var(--gray-400);font-weight:400">(Opsional — sebagai penanda baris acuan)</span></div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Site</label><input type="text" class="form-input" id="tb-site" placeholder="Nama site — misal: Angsana"></div>
+              <div class="form-group"><label class="form-label">User / Klien</label><input type="text" class="form-input" id="tb-user" placeholder="Nama user — misal: BIB"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Pemeriksaan Tambahan (Ya/Tidak)</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">Jaeger</label><select class="form-select" id="tb-jaeger"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Lapang Pandang</label><select class="form-select" id="tb-lapang"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">ROM</label><select class="form-select" id="tb-rom"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Balance Test</label><select class="form-select" id="tb-balance"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Romberg Test</label><select class="form-select" id="tb-romberg"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Phalen's Test</label><select class="form-select" id="tb-phalens"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Tinnel Test</label><select class="form-select" id="tb-tinnel"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Kerniq Test</label><select class="form-select" id="tb-kerniq"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Lasque Test</label><select class="form-select" id="tb-lasque"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Contra Patrick Test</label><select class="form-select" id="tb-contrapatrick"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Harvard</label><select class="form-select" id="tb-harvard"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Treadmill</label><select class="form-select" id="tb-treadmill"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">LED</label><select class="form-select" id="tb-led"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Retikulosit</label><select class="form-select" id="tb-retikulo"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">EDT</label><select class="form-select" id="tb-edt"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Gamma GT</label><select class="form-select" id="tb-gammaggt"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Alkali Fosfat</label><select class="form-select" id="tb-alkalifosfat"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Bilirubin Direct</label><select class="form-select" id="tb-bildir"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Bilirubin Indirect</label><select class="form-select" id="tb-bilindir"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Bilirubin Total</label><select class="form-select" id="tb-biltot"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">GD2JPP</label><select class="form-select" id="tb-gd2jpp"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">HbA1C</label><select class="form-select" id="tb-hba1c"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">VDRL</label><select class="form-select" id="tb-vdrl"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">TPHA</label><select class="form-select" id="tb-tpha"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">HIV</label><select class="form-select" id="tb-hiv"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Malaria</label><select class="form-select" id="tb-malaria"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Anti-HBs</label><select class="form-select" id="tb-antihbs"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Drug Test 7P (Soma)</label><select class="form-select" id="tb-drug7"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Alcohol Test</label><select class="form-select" id="tb-alcohol"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Lumbosacral</label><select class="form-select" id="tb-lumbo"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Framingham Score</label><select class="form-select" id="tb-framing"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">SRQ-20</label><select class="form-select" id="tb-srq"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">DASS-21</label><select class="form-select" id="tb-dass"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">PAP TB</label><select class="form-select" id="tb-paptb"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">Vaksin Hepatitis B</label><select class="form-select" id="tb-vakhepa"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">IgG Anti HAV</label><select class="form-select" id="tb-igg"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+              <div class="form-group"><label class="form-label">IgM Anti HAV</label><select class="form-select" id="tb-igm"><option value="">—</option><option>Ya</option><option>Tidak</option></select></div>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="btn-tambahan">💾 Simpan Data Tambahan</button>
+        </form>
+      </div><!-- end tab-tambahan -->
+      </div><!-- end admin-content -->
+    </div><!-- end modal-body -->
+  </div><!-- end modal -->
+</div><!-- end modal-overlay -->
+
+<script>
+// ============================================================
+// GOOGLE APPS SCRIPT WEB APP URL
+// Ganti dengan URL Deploy dari Google Apps Script Anda
+// ============================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPLACEHOLDER_https://script.google.com/macros/s/AKfycbwKY0MM8yH_TPZ3kiqmQe8wximWKQujEqEzrcvXv7t8Avh8a7Cf5mdc52MPLvnBhyolbg/exec';
+let adminLoggedIn = false; // Password gate state
+
+// ============================================================
+// QR CODE GENERATION
+// ============================================================
+window.addEventListener('load', function() {
+  new QRCode(document.getElementById('qrcode'), {
+    text: window.location.href + '#akses',
+    width: 180, height: 180,
+    colorDark: '#C8272C', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  initCharts();
+  loadDashboardData();
+  loadTambahanCache();
+  loadTableData();
+  initScrollAnimations();
+});
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id) {
+  if (id === 'modal-admin') {
+    // Show login if not authenticated
+    const loginScreen = document.getElementById('admin-login-screen');
+    const content = document.getElementById('admin-content');
+    if (!adminLoggedIn) {
+      loginScreen.style.display = 'block';
+      content.style.display = 'none';
+    }
+  }
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', function(e) {
+    if (e.target === el) closeModal(el.id);
+  });
+});
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(targetId, groupId) {
+  const group = document.getElementById(groupId);
+  // Reset semua tab button
+  group.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // Reset semua tab content dalam modal yang sama
+  const modal = group.closest('.modal');
+  modal.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(targetId).classList.add('active');
+}
+
+// ============================================================
+// AUTO CALCULATIONS
+// ============================================================
+function hitungUsia() {
+  const tgl = document.getElementById('k-tgl').value;
+  if (!tgl) return;
+  const today = new Date();
+  const birth = new Date(tgl);
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  document.getElementById('k-usia').value = age + ' tahun';
+}
+
+function hitungBMI_kd() {
+  const tb = parseFloat(document.getElementById('kd-tb').value);
+  const bb = parseFloat(document.getElementById('kd-bb').value);
+  if (tb && bb) {
+    const tbM = tb / 100;
+    const bmi = (bb / (tbM * tbM)).toFixed(1);
+    document.getElementById('kd-bmi').value = bmi;
+    updateRekomKdsar();
+  }
+}
+
+function updateRekomKdsar() {
+  const bw = document.getElementById('kd-bw').value;
+  const bmi = parseFloat(document.getElementById('kd-bmi').value);
+  const sistole = parseFloat(document.getElementById('kd-sistole').value);
+  const diastole = parseFloat(document.getElementById('kd-diastole').value);
+  let reasons = [];
+  if (bw === 'Positif') reasons.push('Buta Warna Positif');
+  if (bmi > 31) reasons.push('BMI >31 (' + bmi + ')');
+  if (sistole > 159) reasons.push('Sistole >159 (' + sistole + ')');
+  if (diastole > 99) reasons.push('Diastole >99 (' + diastole + ')');
+  const rekom = reasons.length > 0 ? 'Tidak Lanjut Screening' : 'Lanjut Screening';
+  document.getElementById('kd-rekom').value = rekom;
+  const disp = document.getElementById('rekom-kdsar-display');
+  if (reasons.length > 0) {
+    disp.innerHTML = '<span style="color:var(--red);font-weight:700">❌ Tidak Lanjut Screening</span> — ' + reasons.join(', ');
+  } else if (document.getElementById('kd-bw').value) {
+    disp.innerHTML = '<span style="color:var(--green);font-weight:700">✅ Lanjut Screening</span> — Semua parameter dalam batas normal';
+  } else {
+    disp.textContent = '⚡ Akan terisi otomatis setelah data diisi';
+  }
+}
+
+// ============================================================
+// SUBMIT FUNCTIONS
+// ============================================================
+async function submitToSheet(btn, formId, sbId, ebId, ebMsgId, payload) {
+  const button = document.getElementById(btn);
+  const orig = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = '<span class="loading-spinner"></span> Menyimpan...';
+  hideBanners(sbId, ebId);
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    showBanner(sbId);
+    document.getElementById(formId).reset();
+    setTimeout(() => hideBanners(sbId, ebId), 5000);
+  } catch (e) {
+    if (ebMsgId) document.getElementById(ebMsgId).innerHTML = '<strong style="color:var(--red)">Gagal terhubung ke server.</strong><br><span style="font-size:13px;color:var(--red)">Periksa koneksi atau hubungi admin. Error: ' + e.message + '</span>';
+    showBanner(ebId);
+  } finally {
+    button.disabled = false;
+    button.innerHTML = orig;
+  }
+}
+
+function showBanner(id) { document.getElementById(id).classList.add('show'); }
+function hideBanners(...ids) { ids.forEach(id => document.getElementById(id).classList.remove('show')); }
+
+async function submitKandidat(e) {
+  e.preventDefault();
+  await submitToSheet('btn-kandidat', 'form-kandidat', 'sb-kandidat', 'eb-kandidat', 'eb-kandidat',
+    { sheet: 'Kandidat', action: 'insert', data: {
+      NIK: document.getElementById('k-nik').value,
+      Nama: document.getElementById('k-nama').value,
+      TanggalLahir: document.getElementById('k-tgl').value,
+      Usia: document.getElementById('k-usia').value,
+      Posisi: document.getElementById('k-posisi').value,
+      Batch: document.getElementById('k-batch').value
+    }});
+}
+
+async function submitKdsar(e) {
+  e.preventDefault();
+  updateRekomKdsar();
+  await submitToSheet('btn-kdsar', 'form-kdsar', 'sb-kdsar', 'eb-kdsar', 'eb-kdsar-msg',
+    { sheet: 'Kesehatan_Dasar', action: 'insert', data: {
+      ButaWarna: document.getElementById('kd-bw').value,
+      TB: document.getElementById('kd-tb').value,
+      BB: document.getElementById('kd-bb').value,
+      BMI: document.getElementById('kd-bmi').value,
+      Sistole: document.getElementById('kd-sistole').value,
+      Diastole: document.getElementById('kd-diastole').value,
+      Rekomendasi: document.getElementById('kd-rekom').value,
+      NIK_ref: document.getElementById('kd-nik').value
+    }});
+}
+
+async function submitMCU(e) {
+  e.preventDefault();
+  await submitToSheet('btn-mcu', 'form-mcu', 'sb-mcu', 'eb-mcu', 'eb-mcu-msg',
+    { sheet: 'TabelMCU', action: 'insert', data: {
+      NIK: document.getElementById('mcu-nik').value,
+      Nama: document.getElementById('mcu-nama').value,
+      Screening: document.getElementById('mcu-screening').value,
+      TemuanScreening: document.getElementById('mcu-temuan-scr').value,
+      RekomendasiMCU: document.getElementById('mcu-rekom').value,
+      BPJS: document.getElementById('mcu-bpjs').value,
+      Faskes1: document.getElementById('mcu-faskes').value,
+      RekomendasiFU1: document.getElementById('mcu-fu1').value,
+      RekomendasiFU2: document.getElementById('mcu-fu2').value,
+      RekomendasiFU3: document.getElementById('mcu-fu3').value,
+      RencanaPlottingan: document.getElementById('mcu-plotting').value,
+      User: document.getElementById('mcu-user').value,
+      TambahanMatrix: document.getElementById('mcu-tambahan').value,
+      RekomendasiPlotting: document.getElementById('mcu-rekom-plot').value
+    }});
+}
+
+async function submitReview(e) {
+  e.preventDefault();
+  await submitToSheet('btn-review', 'form-review', 'sb-review', 'eb-review', 'eb-review-msg',
+    { sheet: 'ReviewMCU', action: 'insert', data: {
+      NIK: document.getElementById('rv-nik').value,
+      Nama: document.getElementById('rv-nama').value,
+      Hemoroid: document.getElementById('rv-hemoroid').value,
+      VisusJauhOD: document.getElementById('rv-visus-od').value,
+      VisusJauhOS: document.getElementById('rv-visus-os').value,
+      ButaWarna: document.getElementById('rv-bw').value,
+      BMI: document.getElementById('rv-bmi').value,
+      Sistol: document.getElementById('rv-sistol').value,
+      Diastol: document.getElementById('rv-diastol').value,
+      Nadi: document.getElementById('rv-nadi').value,
+      EKG: document.getElementById('rv-ekg').value,
+      Treadmill: document.getElementById('rv-treadmill').value,
+      Hemoglobin: document.getElementById('rv-hb').value,
+      Leukosit: document.getElementById('rv-leuko').value,
+      Eritrosit: document.getElementById('rv-eritro').value,
+      Hematokrit: document.getElementById('rv-hema').value,
+      Trombosit: document.getElementById('rv-trombo').value,
+      LED: document.getElementById('rv-led').value,
+      GolonganDarah: document.getElementById('rv-goldar').value,
+      GDP: document.getElementById('rv-gdp').value,
+      GD2JPP: document.getElementById('rv-gd2jpp').value,
+      HbA1c: document.getElementById('rv-hba1c').value,
+      AsamUrat: document.getElementById('rv-asamurat').value,
+      Ureum: document.getElementById('rv-ureum').value,
+      Creatinin: document.getElementById('rv-creat').value,
+      eGFR: document.getElementById('rv-egfr').value,
+      HBsAg: document.getElementById('rv-hbsag').value,
+      AntiHBs: document.getElementById('rv-antihbs').value,
+      HBeAg: document.getElementById('rv-hbeag').value,
+      UrineLengkap: document.getElementById('rv-urine').value,
+      CholesterolTotal: document.getElementById('rv-chol').value,
+      HDL: document.getElementById('rv-hdl').value,
+      LDL: document.getElementById('rv-ldl').value,
+      Trigliserida: document.getElementById('rv-trigl').value,
+      SGOT: document.getElementById('rv-sgot').value,
+      SGPT: document.getElementById('rv-sgpt').value,
+      AlkaliForsfatase: document.getElementById('rv-alkali').value,
+      GammaGT: document.getElementById('rv-ggt').value,
+      Spirometri: document.getElementById('rv-spiro').value,
+      Audiometri: document.getElementById('rv-audio').value,
+      ThoraxXray: document.getElementById('rv-thorax').value,
+      Lumbosacral: document.getElementById('rv-lumbo').value,
+      DrugTest6P: document.getElementById('rv-drug6').value,
+      DrugTest7P: document.getElementById('rv-drug7').value,
+      Malaria: document.getElementById('rv-malaria').value,
+      VDRL: document.getElementById('rv-vdrl').value,
+      TPHA: document.getElementById('rv-tpha').value,
+      HIV: document.getElementById('rv-hiv').value,
+      BilirubinDirect: document.getElementById('rv-bildir').value,
+      BilirubinIndirect: document.getElementById('rv-bilindir').value,
+      BilirubinTotal: document.getElementById('rv-biltot').value,
+      HarvardTest: document.getElementById('rv-harvard').value,
+      FraminghamScore: document.getElementById('rv-framing').value,
+      InterpretasiFramingham: document.getElementById('rv-framing-int').value,
+      SRQ20: document.getElementById('rv-srq').value,
+      DASS21: document.getElementById('rv-dass').value,
+      BalanceTest: document.getElementById('rv-balance').value,
+      RombergTest: document.getElementById('rv-romberg').value,
+      PhalensTest: document.getElementById('rv-phalen').value,
+      TinelTest: document.getElementById('rv-tinel').value,
+      StraightLegRaise: document.getElementById('rv-slr').value,
+      ContraPatrick: document.getElementById('rv-contrapatrick').value,
+      PAPTB: document.getElementById('rv-paptb').value
+    }});
+}
+
+async function submitTambahan(e) {
+  e.preventDefault();
+  const fields = ['jaeger','lapang','rom','balance','romberg','phalens','tinnel','kerniq','lasque','contrapatrick','harvard','treadmill','led','retikulo','edt','gammaggt','alkalifosfat','bildir','bilindir','biltot','gd2jpp','hba1c','vdrl','tpha','hiv','malaria','antihbs','drug7','alcohol','lumbo','framing','srq','dass','paptb','vakhepa','igg','igm'];
+  const data = { Site: document.getElementById('tb-site').value, User: document.getElementById('tb-user').value };
+  fields.forEach(f => { const el = document.getElementById('tb-'+f); if(el) data[f] = el.value; });
+  await submitToSheet('btn-tambahan', 'form-tambahan', 'sb-tambahan', 'eb-tambahan', 'eb-tambahan-msg',
+    { sheet: 'Tambahan', action: 'insert', data });
+}
+
+// ============================================================
+// DASHBOARD DATA LOAD (dari Google Sheets via SCRIPT_URL)
+// ============================================================
+async function loadDashboardData() {
+  try {
+    if (SCRIPT_URL.includes("PLACEHOLDER")) throw new Error("demo");
+    const res = await fetch(SCRIPT_URL + "?action=getDashboard");
+    const data = await res.json();
+    updateKPIs(data);
+    updateHeroStats(data);
+  } catch(e) {
+    const demo = { total: 148, fit: 95, fitnote: 36, unfit: 17, bpjs: 112, mcu: 127 };
+    updateKPIs(demo);
+    updateHeroStats(demo);
+    if (e.message === "demo") setTimeout(showSetupToast, 2500);
+  }
+}
+
+function showSetupToast() {
+  const b = document.createElement("div");
+  b.style.cssText = "position:fixed;bottom:20px;right:20px;background:#1A1A1A;color:white;padding:16px 20px;border-radius:14px;font-size:13px;z-index:9999;max-width:300px;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid rgba(255,138,60,.3)";
+  b.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span>⚙️</span><strong style="color:#FF8A3C">Setup Diperlukan</strong><button onclick="this.parentNode.parentNode.remove()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:18px">×</button></div><p style="color:rgba(255,255,255,.65);line-height:1.5;font-size:12px">Data masih demo. Deploy <code style="color:#FF8A3C">GoogleAppsScript.js</code> ke Google Apps Script lalu isi variabel <code style="color:#FF8A3C">SCRIPT_URL</code>.</p>`;
+  document.body.appendChild(b);
+}
+
+function updateKPIs(d) {
+  const s = v => v !== undefined ? v : '—';
+  document.getElementById('kpi-total').textContent = s(d.total);
+  document.getElementById('kpi-fit').textContent = s(d.fit);
+  document.getElementById('kpi-fitnote').textContent = s(d.fitnote);
+  document.getElementById('kpi-unfit').textContent = s(d.unfit);
+  document.getElementById('kpi-bpjs').textContent = s(d.bpjs);
+  document.getElementById('kpi-mcu').textContent = s(d.mcu);
+  if (d.total) {
+    document.getElementById('kpi-fit-pct').textContent = Math.round(d.fit/d.total*100) + '%';
+    document.getElementById('kpi-fitnote-pct').textContent = Math.round(d.fitnote/d.total*100) + '%';
+    document.getElementById('kpi-unfit-pct').textContent = Math.round(d.unfit/d.total*100) + '%';
+  }
+}
+
+function updateHeroStats(d) {
+  document.getElementById('stat-total').textContent = d.total || '—';
+  document.getElementById('stat-fit').textContent = d.fit || '—';
+  document.getElementById('stat-mcu').textContent = d.mcu || '—';
+}
+
+// ============================================================
+// CHARTS
+// ============================================================
+const COLORS = {
+  red: '#C8272C', orange: '#E05C1A', green: '#1A7A4A',
+  yellow: '#D98D00', blue: '#1A5FA0', purple: '#6B3FA0',
+  teal: '#0F7173', coral: '#E45C50', gray: '#8E8E8E', navy: '#2C3E7A'
+};
+
+function initCharts() {
+  // Hero Donut
+  new Chart(document.getElementById('heroDonutChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Fit', 'Fit with Note', 'Unfit'],
+      datasets: [{ data: [64, 24, 12], backgroundColor: ['#4ADE80','#FBD14B','#F87171'], borderWidth: 0, hoverOffset: 4 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' } } } }
+  });
+
+  // Disease Chart
+  new Chart(document.getElementById('diseaseChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Hipertensi', 'Obesitas', 'Dislipidemia', 'Hiperurisemia', 'DM Tipe 2', 'Hepatitis B', 'Gangguan Penglihatan', 'Gangg. Pendengaran', 'Gangg. Spirometri', 'Anemia'],
+      datasets: [{ label: 'Jumlah Kasus', data: [42, 38, 31, 28, 22, 18, 15, 13, 11, 9], backgroundColor: [COLORS.red, COLORS.orange, COLORS.yellow, COLORS.teal, COLORS.blue, COLORS.purple, COLORS.coral, COLORS.green, COLORS.navy, COLORS.gray], borderRadius: 6, borderWidth: 0 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(0,0,0,0.05)' } }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+  });
+
+  // MCU Result Donut
+  new Chart(document.getElementById('mcuResultChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Fit', 'Fit with Note', 'Unfit'],
+      datasets: [{ data: [64, 24, 12], backgroundColor: [COLORS.green, COLORS.yellow, COLORS.red], borderWidth: 3, borderColor: '#fff', hoverOffset: 6 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { padding: 16, font: { size: 12 } } } } }
+  });
+
+  // Posisi Chart
+  new Chart(document.getElementById('posisiChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Driver\nOp.', 'Mekanik', 'Mek. AC', 'BMDP'],
+      datasets: [
+        { label: 'Fit', data: [38, 32, 14, 11], backgroundColor: COLORS.green, borderRadius: 4 },
+        { label: 'Fit w/ Note', data: [12, 14, 6, 4], backgroundColor: COLORS.yellow, borderRadius: 4 },
+        { label: 'Unfit', data: [5, 7, 3, 2], backgroundColor: COLORS.red, borderRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: 'rgba(0,0,0,0.05)' } } } }
+  });
+
+  // Batch Chart
+  new Chart(document.getElementById('batchChart'), {
+    type: 'line',
+    data: {
+      labels: ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'Junior', 'Senior'],
+      datasets: [{ label: 'Kandidat', data: [12, 18, 22, 15, 24, 19, 16, 11, 8, 3], borderColor: COLORS.red, backgroundColor: 'rgba(200,39,44,0.08)', borderWidth: 2.5, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: COLORS.red }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(0,0,0,0.05)' } } } }
+  });
+
+  // BPJS Chart
+  new Chart(document.getElementById('bpjsChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Aktif', 'Non-Aktif', 'Premi', 'Penangguhan'],
+      datasets: [{ data: [112, 20, 10, 6], backgroundColor: [COLORS.green, COLORS.red, COLORS.yellow, COLORS.gray], borderWidth: 3, borderColor: '#fff' }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } } }
+  });
+
+  // FU Chart
+  new Chart(document.getElementById('fuChart'), {
+    type: 'bar',
+    data: {
+      labels: ['FU1', 'FU2', 'FU3'],
+      datasets: [
+        { label: 'Fit', data: [95, 82, 75], backgroundColor: COLORS.green, borderRadius: 6 },
+        { label: 'Fit with Note', data: [36, 30, 28], backgroundColor: COLORS.yellow, borderRadius: 6 },
+        { label: 'Unfit', data: [17, 15, 14], backgroundColor: COLORS.red, borderRadius: 6 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { font: { size: 12 } } } }, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(0,0,0,0.05)' } } } }
+  });
+
+  // Screening Chart
+  new Chart(document.getElementById('screeningChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Lanjut Screening', 'Tidak Lanjut'],
+      datasets: [{ data: [127, 21], backgroundColor: [COLORS.green, COLORS.red], borderWidth: 3, borderColor: '#fff', hoverOffset: 6 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16 } } } }
+  });
+}
+
+
+
+// ============================================================
+// PASSWORD / LOGIN ADMIN
+// ============================================================
+const ADMIN_PASS = 'admin123';
+
+function doAdminLogin() {
+  const val = document.getElementById('admin-pw-input').value;
+  if (val === ADMIN_PASS) {
+    adminLoggedIn = true;
+    document.getElementById('admin-login-screen').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'block';
+    document.getElementById('admin-modal-title').textContent = '⚕️ Portal Operator / Admin';
+    document.getElementById('admin-modal-sub').textContent = 'Sistem Kesehatan Dasar PT Bagong Dekaka Makmur';
+    document.getElementById('admin-login-err').style.display = 'none';
+  } else {
+    const input = document.getElementById('admin-pw-input');
+    input.classList.add('pw-shake');
+    document.getElementById('admin-login-err').style.display = 'block';
+    input.value = '';
+    input.focus();
+    setTimeout(() => input.classList.remove('pw-shake'), 500);
+  }
+}
+
+function resetAdminLogin() {
+  adminLoggedIn = false;
+  document.getElementById('admin-login-screen').style.display = 'block';
+  document.getElementById('admin-content').style.display = 'none';
+  document.getElementById('admin-modal-title').textContent = '🔐 Login Operator / Admin';
+  document.getElementById('admin-modal-sub').textContent = 'Masukkan password untuk mengakses sistem';
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('admin-login-err').style.display = 'none';
+}
+
+function togglePwVis() {
+  const inp = document.getElementById('admin-pw-input');
+  const eye = document.getElementById('pw-eye');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  eye.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+// openModal already handles admin login check above
+
+// ============================================================
+// TABEL MCU — KANDIDAT DATA (Lanjut Screening)
+// ============================================================
+let kdsarLanjutData = []; // Cache kandidat yg lanjut screening
+let plottingOptions = []; // daftar site dari cache Tambahan
+
+function getPlottingOptions() {
+  const sites = new Set();
+  Object.keys(tambahanCache).forEach(key => {
+    const site = key.split('|')[0];
+    if (site) sites.add(site.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '));
+  });
+  return [...sites].sort();
+}
+
+function getUserOptions(site) {
+  const users = [];
+  const siteLow = (site || '').toLowerCase();
+  Object.keys(tambahanCache).forEach(key => {
+    const [s, u] = key.split('|');
+    if (s === siteLow && u) users.push(u.toUpperCase());
+  });
+  return users.sort();
+}
+
+async function loadKdsarLanjutForMCU() {
+  const btn = document.getElementById('btn-load-mcu');
+  const tbody = document.getElementById('mcu-table-body');
+  btn.innerHTML = '⏳ Memuat...';
+  btn.disabled = true;
+
+  let candidates = [];
+
+  if (!SCRIPT_URL.includes('PLACEHOLDER')) {
+    try {
+      const r = await fetch(SCRIPT_URL + '?action=getKdsarLanjut');
+      const d = await r.json();
+      if (d && d.candidates) candidates = d.candidates;
+    } catch(e) { console.log('demo mode'); }
+  }
+
+  // Demo data jika script belum dikonfigurasi
+  if (candidates.length === 0) {
+    candidates = [
+      { nik: '3201234567890001', nama: 'Andri Setiawan', rekom: 'Lanjut Screening' },
+      { nik: '3201234567890002', nama: 'Budi Santoso', rekom: 'Lanjut Screening' },
+      { nik: '3201234567890003', nama: 'Catur Wibowo', rekom: 'Lanjut Screening' },
+      { nik: '3201234567890005', nama: 'Eko Nugroho', rekom: 'Lanjut Screening' },
+      { nik: '3201234567890006', nama: 'Fajar Hidayat', rekom: 'Lanjut Screening' },
+    ];
+  }
+
+  kdsarLanjutData = candidates;
+  renderMCUTable(candidates);
+  document.getElementById('mcu-row-count').textContent = candidates.length + ' kandidat Lanjut Screening';
+  btn.innerHTML = '🔄 Muat Kandidat Lanjut Screening';
+  btn.disabled = false;
+}
+
+function makeSel(opts, cls, placeholder) {
+  return '<select class="' + cls + '"><option value="">' + placeholder + '</option>' +
+    opts.map(o => '<option>' + o + '</option>').join('') + '</select>';
+}
+
+function renderMCUTable(candidates) {
+  const tbody = document.getElementById('mcu-table-body');
+  if (!candidates || candidates.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="13" style="text-align:center;padding:32px;color:var(--gray-400);font-size:13px">Tidak ada kandidat dengan status Lanjut Screening.</td></tr>';
+    return;
+  }
+
+  const fuOpts = ['Fit', 'Fit with Note', 'Unfit'];
+  const bpjsOpts = ['Aktif', 'Non-Aktif', 'Premi', 'Penangguhan'];
+  const screenOpts = ['Lanjut MCU', 'Tidak Lanjut MCU'];
+  const rekPlotOpts = ['Fit', 'Fit with Note', 'Unfit'];
+  const plottingSites = getPlottingOptions();
+  if (plottingSites.length === 0) {
+    // Fallback list from spreadsheet screenshot
+    ['Aceh','Adaro','AMC Tuhup','Angsana','Awak Mas','Balikpapan','Banyuwangi','Batukajang','Bengalon','Berau Coal','BHP HPU','Binuang','Binungan','Bontang','Buhut','Bukit Pinang','GAM','Gorontalo','Halmahira Timur'].forEach(s => plottingSites.push(s));
+  }
+
+  tbody.innerHTML = candidates.map((c, i) => `
+    <tr id="mcu-row-${i}" data-nik="${c.nik}" data-nama="${c.nama}">
+      <td class="td-no">${i + 1}</td>
+      <td><div class="tbl-auto-cell" style="font-family:monospace;font-size:11px">${c.nik}</div></td>
+      <td><div class="tbl-auto-cell" style="font-weight:600;font-style:normal;color:var(--gray-900)">${c.nama}</div></td>
+      <td>${makeSel(screenOpts, 'tbl-select', '— Pilih —')}</td>
+      <td>${makeSel(bpjsOpts, 'tbl-select', '— Pilih —')}</td>
+      <td><input type="text" class="tbl-input" placeholder="Nama Faskes 1..."></td>
+      <td>${makeSel(fuOpts, 'tbl-select', '— Pilih —')}</td>
+      <td>${makeSel(fuOpts, 'tbl-select', '— Pilih (opsional) —')}</td>
+      <td>${makeSel(fuOpts, 'tbl-select', '— Pilih (opsional) —')}</td>
+      <td>
+        <select class="tbl-select" onchange="onMCUPlottingChange(this, ${i})">
+          <option value="">— Pilih Site —</option>
+          ${plottingSites.map(s => '<option>' + s + '</option>').join('')}
+        </select>
+      </td>
+      <td>
+        <select class="tbl-select" id="mcu-user-sel-${i}" onchange="onMCUUserChange(this, ${i})">
+          <option value="">— Opsional —</option>
+        </select>
+      </td>
+      <td><div class="tbl-tambahan-auto" id="mcu-tambahan-cell-${i}">—</div></td>
+      <td>${makeSel(rekPlotOpts, 'tbl-select', '— Pilih —')}</td>
+    </tr>
+  `).join('');
+}
+
+function onMCUPlottingChange(sel, rowIdx) {
+  const site = sel.value;
+  const userSel = document.getElementById('mcu-user-sel-' + rowIdx);
+  const siteLow = site.toLowerCase();
+
+  // Update user dropdown based on site
+  const users = getUserOptions(siteLow);
+  userSel.innerHTML = '<option value="">— Opsional —</option>' +
+    users.map(u => '<option>' + u + '</option>').join('');
+
+  // Update tambahan if user already chosen
+  updateTambahanCell(rowIdx, siteLow, (userSel.value || '').toLowerCase());
+}
+
+function onMCUUserChange(sel, rowIdx) {
+  const row = document.getElementById('mcu-row-' + rowIdx);
+  const plotSel = row.querySelectorAll('.tbl-select')[3]; // 4th select = plotting
+  const site = (plotSel ? plotSel.value : '').toLowerCase();
+  const user = (sel.value || '').toLowerCase();
+  updateTambahanCell(rowIdx, site, user);
+}
+
+function updateTambahanCell(rowIdx, site, user) {
+  const cell = document.getElementById('mcu-tambahan-cell-' + rowIdx);
+  if (!site || !user) { cell.textContent = '—'; return; }
+  const key = site + '|' + user;
+  const items = tambahanCache[key];
+  if (items && items.length) {
+    cell.innerHTML = items.map(i => '<span class="tag-item" style="display:inline-block;margin:1px 2px">' + i + '</span>').join(' ');
+  } else {
+    cell.textContent = 'Tidak ada data tambahan';
+    cell.style.color = 'var(--gray-400)';
+  }
+}
+
+async function saveMCUTable() {
+  const btn = document.getElementById('btn-mcu');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Menyimpan...';
+  hideBanners('sb-mcu', 'eb-mcu');
+
+  const rows = [];
+  const tbody = document.getElementById('mcu-table-body');
+  const trs = tbody.querySelectorAll('tr[data-nik]');
+
+  trs.forEach((tr, i) => {
+    const sels = tr.querySelectorAll('.tbl-select');
+    const inp = tr.querySelector('.tbl-input');
+    const tamb = document.getElementById('mcu-tambahan-cell-' + i);
+    rows.push({
+      NIK:              tr.dataset.nik,
+      Nama:             tr.dataset.nama,
+      Screening:        sels[0] ? sels[0].value : '',
+      BPJS:             sels[1] ? sels[1].value : '',
+      Faskes1:          inp ? inp.value : '',
+      RekomendasiFU1:   sels[2] ? sels[2].value : '',
+      RekomendasiFU2:   sels[3] ? sels[3].value : '',
+      RekomendasiFU3:   sels[4] ? sels[4].value : '',
+      RencanaPlottingan: sels[5] ? sels[5].value : '',
+      User:             sels[6] ? sels[6].value : '',
+      TambahanMatrix:   tamb ? tamb.textContent.replace(/\s+/g, ' ').trim() : '',
+      RekomendasiPlotting: sels[7] ? sels[7].value : '',
+    });
+  });
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sheet: 'TabelMCU', action: 'insertBatch', rows })
+    });
+    showBanner('sb-mcu');
+    setTimeout(() => hideBanners('sb-mcu', 'eb-mcu'), 6000);
+  } catch(e) {
+    document.getElementById('eb-mcu-msg').innerHTML = '<strong style="color:var(--red)">Gagal menyimpan: </strong><span style="font-size:13px;color:var(--red)">' + e.message + '</span>';
+    showBanner('eb-mcu');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '💾 Simpan Semua ke Spreadsheet';
+}
+
+// ============================================================
+// DATA TAMBAHAN - Cache dari spreadsheet untuk lookup lokal
+// Struktur: { "Site|User": ["Item1","Item2",...], ... }
+// ============================================================
+let tambahanCache = {};
+let tableAllRows = [];
+
+// Muat cache Tambahan dari SCRIPT_URL saat halaman load
+async function loadTambahanCache() {
+  // Data hardcoded contoh (dari screenshot spreadsheet) sebagai fallback
+  // Key format: "Site|User" (lowercase trim)
+  tambahanCache = {
+    "angsana|bib": ["Jaeger Test","Treadmill Usia \u226535 th","LED","Gamma GT","Alkali Fosfat","Bilirubin Direct","Bilirubin Indirect","Bilirubin Total","GD 2 JPP","HbA1C","Anti-HBs","Framingham Score","Vaksin Hepatitis B"],
+    "angsana|buma": ["Jaeger Test","LED","Treadmill Usia \u226540 th"],
+    "angsana|ck": ["Jaeger Test","LED","GD 2 JPP"],
+    "angsana|ppa": ["Jaeger Test","Treadmill Usia \u226540 th","LED","GD 2 JPP"],
+    "aceh|amm-mifa": ["Treadmill Usia \u226540 th","LED","Gamma GT","Anti-HBs"],
+    "adaro|adaro indonesia": ["Balance Test","Contra Patrick Test","Romberg Test","Phalen Test","Tinnel Test","Kerniq Test","Lasque Test","Harvard","Treadmill Usia \u226535 th"],
+    "amc tuhup|alamtri": ["Jaeger Test","Treadmill Usia \u226540 th","LED","Anti-HBs"],
+    "balikpapan|buma": ["Jaeger Test","Treadmill Usia \u226540 th","LED","Bilirubin Direct","Bilirubin Indirect","Bilirubin Total"],
+    "banyuwangi|bss": ["Jaeger Test","Treadmill Usia \u226540 th","LED"],
+    "batukajang|kideco": ["Jaeger Test","Balance Test","Romberg Test","Phalen Test","Tinnel Test","Harvard","Treadmill Usia \u226540 th"],
+  };
+
+  if (!SCRIPT_URL.includes('PLACEHOLDER')) {
+    try {
+      const r = await fetch(SCRIPT_URL + '?action=getTambahan');
+      const data = await r.json();
+      if (data && data.cache) {
+        tambahanCache = { ...tambahanCache, ...data.cache };
+        console.log('Tambahan cache loaded from sheet:', Object.keys(tambahanCache).length, 'entries');
+      }
+    } catch(e) {
+      console.log('Menggunakan cache Tambahan lokal (demo)');
+    }
+  }
+}
+
+// ============================================================
+// LOOKUP TAMBAHAN MATRIX di TabelMCU
+// Dipanggil saat Rencana Plottingan atau User berubah
+// ============================================================
+function lookupTambahanMatrix() {
+  const site  = (document.getElementById('mcu-plotting').value || '').trim().toLowerCase();
+  const user  = (document.getElementById('mcu-user').value   || '').trim().toLowerCase();
+  const preview = document.getElementById('mcu-tambahan-preview');
+  const field   = document.getElementById('mcu-tambahan');
+
+  if (!site || !user) {
+    preview.style.display = 'none';
+    field.value = '';
+    return;
+  }
+
+  const key = site + '|' + user;
+  const items = tambahanCache[key];
+
+  if (items && items.length > 0) {
+    // Tampilkan preview tags
+    preview.style.display = 'block';
+    preview.innerHTML = '<div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:8px">\u2705 ' + items.length + ' item pemeriksaan tambahan ditemukan untuk Site <strong>' + site.toUpperCase().replace(/\b\w/g,c=>c.toUpperCase()) + '</strong> \u2014 User <strong>' + user.toUpperCase() + '</strong>:</div><div style="display:flex;flex-wrap:wrap;gap:5px">' +
+      items.map(i => '<span class="tag-item">' + i + '</span>').join('') + '</div>';
+    field.value = items.join(', ');
+  } else {
+    // Tidak ada data
+    preview.style.display = 'block';
+    preview.innerHTML = '<div style="font-size:12px;color:var(--gray-400)">\u26a0\ufe0f Tidak ada data Tambahan untuk kombinasi <strong>' + site + '</strong> + <strong>' + user + '</strong>. Pastikan data sudah diisi di Sheet Tambahan.</div>';
+    field.value = '';
+  }
+}
+
+// ============================================================
+// LOAD & RENDER TABEL ANALISIS MCU
+// ============================================================
+async function loadTableData() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '<tr><td colspan="15" class="tbl-loading"><div class="tbl-loading-spinner" style="display:block;margin:0 auto 10px"></div>Memuat data...</td></tr>';
+
+  let rows = [];
+
+  if (!SCRIPT_URL.includes('PLACEHOLDER')) {
+    try {
+      const r = await fetch(SCRIPT_URL + '?action=getTabelMCU');
+      const data = await r.json();
+      if (data && data.rows) rows = data.rows;
+    } catch(e) {
+      console.log('Menggunakan data demo untuk tabel analisis');
+    }
+  }
+
+  // Demo data jika script belum dikonfigurasi
+  if (rows.length === 0) {
+    rows = getDemoTableRows();
+  }
+
+  tableAllRows = rows;
+  renderTable(rows);
+  updateTableSummary(rows);
+}
+
+function getDemoTableRows() {
+  return [
+    { nik:'3201234567890001', nama:'Andri Setiawan', screening:'Lanjut MCU', temuanScr:'', rekMCU:'Fit with Note', bpjs:'Aktif', faskes:'Puskesmas Angsana', fu1:'Fit', fu2:'Fit', fu3:'', plotting:'Angsana', user:'BIB', tambahan:'Jaeger Test, Treadmill Usia ≥35 th, LED, Gamma GT, Alkali Fosfat, Bilirubin Direct, Bilirubin Indirect, Bilirubin Total, GD 2 JPP, HbA1C, Anti-HBs, Framingham Score, Vaksin Hepatitis B', rekPlot:'Fit with Note' },
+    { nik:'3201234567890002', nama:'Budi Santoso', screening:'Lanjut MCU', temuanScr:'', rekMCU:'Fit', bpjs:'Aktif', faskes:'Klinik Utama Adaro', fu1:'Fit', fu2:'Fit', fu3:'Fit', plotting:'Adaro', user:'Adaro Indonesia', tambahan:'Balance Test, Contra Patrick Test, Romberg Test, Treadmill Usia ≥35 th', rekPlot:'Fit' },
+    { nik:'3201234567890003', nama:'Catur Wibowo', screening:'Lanjut MCU', temuanScr:'Tekanan Darah Tinggi', rekMCU:'Fit with Note', bpjs:'Premi', faskes:'RSUD Kotabaru', fu1:'Fit with Note', fu2:'Fit with Note', fu3:'', plotting:'Balikpapan', user:'BUMA', tambahan:'Jaeger Test, Treadmill Usia ≥40 th, LED, Bilirubin Direct, Bilirubin Indirect, Bilirubin Total', rekPlot:'Fit with Note' },
+    { nik:'3201234567890004', nama:'Dwi Prasetyo', screening:'Tidak Lanjut MCU', temuanScr:'BMI >31, Buta Warna Positif', rekMCU:'Unfit', bpjs:'Non-Aktif', faskes:'', fu1:'Unfit', fu2:'', fu3:'', plotting:'', user:'', tambahan:'', rekPlot:'Unfit' },
+    { nik:'3201234567890005', nama:'Eko Nugroho', screening:'Lanjut MCU', temuanScr:'', rekMCU:'Fit', bpjs:'Aktif', faskes:'Klinik Aceh Utara', fu1:'Fit', fu2:'Fit', fu3:'Fit', plotting:'Aceh', user:'AMM-MIFA', tambahan:'Treadmill Usia ≥40 th, LED, Gamma GT, Anti-HBs', rekPlot:'Fit' },
+    { nik:'3201234567890006', nama:'Fajar Hidayat', screening:'Lanjut MCU', temuanScr:'LED Tinggi', rekMCU:'Fit with Note', bpjs:'Aktif', faskes:'Puskesmas Banyuwangi', fu1:'Fit with Note', fu2:'Fit', fu3:'', plotting:'Banyuwangi', user:'BSS', tambahan:'Jaeger Test, Treadmill Usia ≥40 th, LED', rekPlot:'Fit with Note' },
+    { nik:'3201234567890007', nama:'Gilang Ramadhan', screening:'Lanjut MCU', temuanScr:'', rekMCU:'Fit', bpjs:'Aktif', faskes:'RS AMC Tuhup', fu1:'Fit', fu2:'Fit', fu3:'Fit', plotting:'AMC Tuhup', user:'Alamtri', tambahan:'Jaeger Test, Treadmill Usia ≥40 th, LED, Anti-HBs', rekPlot:'Fit' },
+    { nik:'3201234567890008', nama:'Hendra Kurniawan', screening:'Lanjut MCU', temuanScr:'Drug Test Negatif', rekMCU:'Fit', bpjs:'Penangguhan', faskes:'Klinik Batukajang', fu1:'Fit', fu2:'', fu3:'', plotting:'Batukajang', user:'KIDECO', tambahan:'Jaeger Test, Balance Test, Romberg Test, Harvard, Treadmill Usia ≥40 th', rekPlot:'Fit' },
+    { nik:'3201234567890009', nama:'Irwan Susanto', screening:'Lanjut MCU', temuanScr:'Hiperurisemia', rekMCU:'Fit with Note', bpjs:'Aktif', faskes:'Puskesmas Bengalon', fu1:'Fit with Note', fu2:'Fit with Note', fu3:'', plotting:'Bengalon', user:'PPA', tambahan:'Jaeger Test, Treadmill Usia ≥40 th, LED, GD 2 JPP', rekPlot:'Fit with Note' },
+    { nik:'3201234567890010', nama:'Joko Widodo', screening:'Tidak Lanjut MCU', temuanScr:'Sistole >160', rekMCU:'Unfit', bpjs:'Non-Aktif', faskes:'', fu1:'Unfit', fu2:'', fu3:'', plotting:'', user:'', tambahan:'', rekPlot:'Unfit' },
+  ];
+}
+
+function pillHTML(val) {
+  if (!val) return '<span style="color:var(--gray-400);font-size:12px">—</span>';
+  const v = val.trim().toLowerCase();
+  if (v === 'fit with note') return '<span class="pill pill-fitnote">⚠ Fit with Note</span>';
+  if (v === 'fit') return '<span class="pill pill-fit">✓ Fit</span>';
+  if (v === 'unfit') return '<span class="pill pill-unfit">✕ Unfit</span>';
+  if (v === 'aktif') return '<span class="pill pill-aktif">● Aktif</span>';
+  if (v === 'non-aktif') return '<span class="pill pill-nonaktif">○ Non-Aktif</span>';
+  if (v === 'premi') return '<span class="pill pill-premi">◑ Premi</span>';
+  if (v === 'penangguhan') return '<span class="pill pill-penangguhan">◔ Penangguhan</span>';
+  if (v === 'lanjut mcu') return '<span class="pill pill-lanjut">→ Lanjut MCU</span>';
+  if (v === 'tidak lanjut mcu') return '<span class="pill pill-tidak">✕ Tidak Lanjut</span>';
+  return val;
+}
+
+function tambahanTagsHTML(str) {
+  if (!str) return '<span style="color:var(--gray-400);font-size:12px">—</span>';
+  const items = str.split(',').map(s => s.trim()).filter(Boolean);
+  if (items.length === 0) return '<span style="color:var(--gray-400);font-size:12px">—</span>';
+  return '<div class="tbl-tambahan-tags">' + items.map(i => '<span class="tag-item">' + i + '</span>').join('') + '</div>';
+}
+
+function renderTable(rows) {
+  const tbody = document.getElementById('tableBody');
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="15" class="tbl-empty">📭 Belum ada data TabelMCU. Silakan isi form di Portal Operator.</td></tr>';
+    document.getElementById('tbl-count-label').textContent = '0 data';
+    return;
+  }
+  tbody.innerHTML = rows.map((r, i) => `
+    <tr>
+      <td class="td-no">${i + 1}</td>
+      <td class="td-nik">${r.nik || '—'}</td>
+      <td class="td-nama">${r.nama || '—'}</td>
+      <td>${pillHTML(r.screening)}</td>
+      <td style="max-width:180px;white-space:normal;font-size:12px;color:var(--gray-600)">${r.temuanScr || '<span style="color:var(--gray-400)">—</span>'}</td>
+      <td>${pillHTML(r.rekMCU)}</td>
+      <td>${pillHTML(r.bpjs)}</td>
+      <td style="font-size:12px;color:var(--gray-600)">${r.faskes || '<span style="color:var(--gray-400)">—</span>'}</td>
+      <td>${pillHTML(r.fu1)}</td>
+      <td>${pillHTML(r.fu2)}</td>
+      <td>${pillHTML(r.fu3)}</td>
+      <td style="font-size:12px;font-weight:600;color:var(--gray-700)">${r.plotting || '<span style="color:var(--gray-400)">—</span>'}</td>
+      <td style="font-size:12px;color:var(--gray-600)">${r.user || '<span style="color:var(--gray-400)">—</span>'}</td>
+      <td>${tambahanTagsHTML(r.tambahan)}</td>
+      <td>${pillHTML(r.rekPlot)}</td>
+    </tr>
+  `).join('');
+  document.getElementById('tbl-count-label').textContent = rows.length + ' data';
+}
+
+function filterTable() {
+  const q   = (document.getElementById('tbl-search').value || '').toLowerCase();
+  const fp  = (document.getElementById('tbl-filter-plotting').value || '').toLowerCase();
+  const fb  = (document.getElementById('tbl-filter-bpjs').value || '').toLowerCase();
+  const fs  = (document.getElementById('tbl-filter-screening').value || '').toLowerCase();
+
+  const filtered = tableAllRows.filter(r => {
+    const matchQ  = !q  || (r.nik||'').toLowerCase().includes(q) || (r.nama||'').toLowerCase().includes(q);
+    const matchFP = !fp || (r.rekPlot||'').toLowerCase() === fp;
+    const matchFB = !fb || (r.bpjs||'').toLowerCase() === fb;
+    const matchFS = !fs || (r.screening||'').toLowerCase() === fs;
+    return matchQ && matchFP && matchFB && matchFS;
+  });
+
+  renderTable(filtered);
+  updateTableSummary(filtered);
+}
+
+function updateTableSummary(rows) {
+  const fit = rows.filter(r => (r.rekPlot||'').trim() === 'Fit').length;
+  const fn  = rows.filter(r => (r.rekPlot||'').trim() === 'Fit with Note').length;
+  const uf  = rows.filter(r => (r.rekPlot||'').trim() === 'Unfit').length;
+  const el  = document.getElementById('tbl-summary');
+  el.innerHTML = [
+    fit ? `<span class="pill pill-fit">✓ Fit: ${fit}</span>` : '',
+    fn  ? `<span class="pill pill-fitnote">⚠ Fit w/ Note: ${fn}</span>` : '',
+    uf  ? `<span class="pill pill-unfit">✕ Unfit: ${uf}</span>` : '',
+  ].join('');
+}
+
+// ============================================================
+// SCROLL ANIMATIONS
+// ============================================================
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+</script>
+</body>
+</html>
